@@ -37,7 +37,7 @@ namespace Laptop_Brand_Recommendation
                         Console.WriteLine(DataBusiness.LaptopProcess.RemoveBrand(Remove.ToUpper()));
                         break;
                     case 5:
-                        Console.WriteLine("Thank you for using");
+                        Console.WriteLine("Thank you for using!");
                         loop = false;
                         break;
                     default:
