@@ -5,70 +5,102 @@ namespace DataBusiness
     public class LaptopProcess
     {
         public static List<string> LaptopBrands = new List<string>();
-        public static string brand;
+        public static List<string> Productivity = new List<string>();
+        public static List<string> Gaming = new List<string>();
+        public static List<string> BasicBrowsing = new List<string>();
+        public static List<string> RecommendedBrands = new List<string>();
         // Business logic for recommending a brand
-        public static string RecommendBrand(int use)
+        public static List<string> RecommendBrand(int use)
         {
-            List<string> RecommendedBrands = new List<string>();
-
             switch (use)
             {
                 case 1:
-                    if (LaptopBrands.Contains("DELL")) RecommendedBrands.Add("DELL");
-                    if (LaptopBrands.Contains("APPLE")) RecommendedBrands.Add("APPLE");
-                    if (LaptopBrands.Contains("HP")) RecommendedBrands.Add("HP");
-                    if (LaptopBrands.Contains("HUAWEI")) RecommendedBrands.Add("HUAWEI");
+                    RecommendedBrands = Productivity;
                     break;
                 case 2:
-                    if (LaptopBrands.Contains("ASUS")) RecommendedBrands.Add("ASUS");
-                    if (LaptopBrands.Contains("MSI")) RecommendedBrands.Add("MSI");
-                    if (LaptopBrands.Contains("ACER")) RecommendedBrands.Add("ACER");
+                    RecommendedBrands = Gaming;
                     break;
                 case 3:
-                    if (LaptopBrands.Contains("LENOVO")) RecommendedBrands.Add("LENOVO");
-                    if (LaptopBrands.Contains("SAMSUNG")) RecommendedBrands.Add("SAMSUNG");
-                    if (LaptopBrands.Contains("MICROSOFT")) RecommendedBrands.Add("MICROSOFT");
+                    RecommendedBrands = BasicBrowsing;
                     break;
                 default:
-                    return "Please read and try again";
+                    return RecommendedBrands;
             }
 
-            if (RecommendedBrands.Count > 0)
-            {
-                return $"Recommended brands: {String.Join(",", RecommendedBrands)}";
-            }
-            else
-            {
-                return "No recommended brands";
-            }
+            return RecommendedBrands;
+          
         }
 
         // Data logic for adding a brand
-        public static string AddBrand(string brand)
+        public static string AddBrand(string brand,int use)
         {
-            if (!LaptopBrands.Contains(brand))
+            switch (use)
             {
-                LaptopBrands.Add(brand);
-                return $"{brand} added";
+                case (int)Actions.Productivtity:        
+                    if(!Productivity.Contains(brand))
+                    {
+                        LaptopBrands.Add(brand);
+                        Productivity.Add(brand);
+                        return $"{brand} added to Productivity!";
+                    }
+                    else
+                    {
+                        return $"{brand} already exists";
+                    }
+                case 2:
+                    if (!Gaming.Contains(brand))
+                    {
+                        LaptopBrands.Add(brand);
+                        Gaming.Add(brand);
+                        return $"{brand} added to Gaming!";
+                    }
+                    else
+                    {
+                        return $"{brand} already exists";
+                    }
+                case 3:
+                    if (!BasicBrowsing.Contains(brand))
+                    {
+                        LaptopBrands.Add(brand);
+                        BasicBrowsing.Add(brand);
+                        return $"{brand} added to Basic Browsing!";
+                    }
+                    else
+                    {
+                        return $"{brand} already exists";
+                    }
+                default:
+                    return "Invalid choice";
             }
-            else
-            {
-                return $"{brand} already exists";
-            }
+            
         }
 
         // Data logic for removing a brand
         public static string RemoveBrand(string brand)
         {
-            if (LaptopBrands.Contains(brand))
+            if (Productivity.Contains(brand))
             {
                 LaptopBrands.Remove(brand);
-                return $"{brand} removed";
+                Productivity.Remove(brand);
+                return $"{brand} removed from Productivity!";
+            }
+            else if (Gaming.Contains(brand))
+            {
+                LaptopBrands.Remove(brand);
+                Gaming.Remove(brand);
+                return $"{brand} removed from Gaming!";
+            }
+            else if (BasicBrowsing.Contains(brand))
+            {
+                LaptopBrands.Remove(brand);
+                BasicBrowsing.Remove(brand);
+                return $"{brand} removed from Basic Browsing!";
             }
             else
             {
                 return $"{brand} does not exist";
-            }
+            }       
         }
+       
     }
 }

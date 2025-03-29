@@ -19,18 +19,29 @@ namespace Laptop_Brand_Recommendation
                 {
                     case 1:
                         Console.Write("Enter brand: ");
-                        string NewBrand = GetUserInput();
-                        Console.WriteLine(DataBusiness.LaptopProcess.AddBrand(NewBrand.ToUpper()));
+                        string brand = GetUserInput();
+                        Console.WriteLine("What type? ");
+                        Console.WriteLine("1 - Productivity 2 - Gaming 3 - Basic Browsing");
+                        int use = Convert.ToInt16(Console.ReadLine());
+                        Console.WriteLine(LaptopProcess.AddBrand(brand,use));
                         break;
                     case 2:
                         DisplayBrands(DataBusiness.LaptopProcess.LaptopBrands);
                         break;
                     case 3:
                         Console.WriteLine("For what use do you want your computer?\n1 - Productivity 2 - Gaming 3 - Basic Browsing");
-                        int use = Convert.ToInt16(Console.ReadLine());
+                        int type = Convert.ToInt16(Console.ReadLine());
                         Formatter();
-                        Console.WriteLine(DataBusiness.LaptopProcess.RecommendBrand(use));
-                        break;
+                        
+                        if (DataBusiness.LaptopProcess.RecommendBrand(type).Count > 0)
+                        {
+                            Console.WriteLine($"Recommended brands: {String.Join(",",LaptopProcess.RecommendedBrands)}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No recommended brands");
+                        }
+                            break;
                     case 4:
                         Console.Write("Enter brand: ");
                         string Remove = GetUserInput();
@@ -73,7 +84,7 @@ namespace Laptop_Brand_Recommendation
         }
         public static string GetUserInput()
         {
-            return Console.ReadLine();
+            return Console.ReadLine().ToUpper();
         }
     }
 }
