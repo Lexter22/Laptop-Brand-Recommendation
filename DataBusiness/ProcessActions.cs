@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using static DataBusiness.LaptopProcess;
 namespace DataBusiness
 {
-    public enum Actions
+    public enum ProcessActions
     {
-        Productivtity,
-        Gaming = 2,
-        BasicBrowsing = 3
+        Productivity,
+        Gaming,
+        BasicBrowsing
     }
 }

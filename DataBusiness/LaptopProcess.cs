@@ -4,7 +4,7 @@ namespace DataBusiness
 {
     public class LaptopProcess
     {
-        public static List<string> LaptopBrands = new List<string>();
+        public static List<string> LaptopBrands = new List<string>(); // this is to store every brands
         public static List<string> Productivity = new List<string>();
         public static List<string> Gaming = new List<string>();
         public static List<string> BasicBrowsing = new List<string>();
@@ -14,13 +14,13 @@ namespace DataBusiness
         {
             switch (use)
             {
-                case 1:
+                case (int)ProcessActions.Productivity:
                     RecommendedBrands = Productivity;
                     break;
-                case 2:
+                case (int)ProcessActions.Gaming:
                     RecommendedBrands = Gaming;
                     break;
-                case 3:
+                case (int)ProcessActions.BasicBrowsing:
                     RecommendedBrands = BasicBrowsing;
                     break;
                 default:
@@ -32,11 +32,15 @@ namespace DataBusiness
         }
 
         // Data logic for adding a brand
+
+        /* In Adding and Removing a brand,other than calling the specific list
+            * I included the LaptopBrands list which is the general so that
+            * it gets updated too */
         public static string AddBrand(string brand,int use)
         {
             switch (use)
             {
-                case (int)Actions.Productivtity:        
+                case (int)ProcessActions.Productivity:        
                     if(!Productivity.Contains(brand))
                     {
                         LaptopBrands.Add(brand);
@@ -47,7 +51,7 @@ namespace DataBusiness
                     {
                         return $"{brand} already exists";
                     }
-                case 2:
+                case (int)ProcessActions.Gaming:
                     if (!Gaming.Contains(brand))
                     {
                         LaptopBrands.Add(brand);
@@ -58,7 +62,7 @@ namespace DataBusiness
                     {
                         return $"{brand} already exists";
                     }
-                case 3:
+                case (int)ProcessActions.BasicBrowsing:
                     if (!BasicBrowsing.Contains(brand))
                     {
                         LaptopBrands.Add(brand);
@@ -78,23 +82,24 @@ namespace DataBusiness
         // Data logic for removing a brand
         public static string RemoveBrand(string brand)
         {
+           
             if (Productivity.Contains(brand))
             {
                 LaptopBrands.Remove(brand);
                 Productivity.Remove(brand);
-                return $"{brand} removed from Productivity!";
+                return $"{brand} removed!";
             }
             else if (Gaming.Contains(brand))
             {
                 LaptopBrands.Remove(brand);
                 Gaming.Remove(brand);
-                return $"{brand} removed from Gaming!";
+                return $"{brand} removed!";
             }
             else if (BasicBrowsing.Contains(brand))
             {
                 LaptopBrands.Remove(brand);
                 BasicBrowsing.Remove(brand);
-                return $"{brand} removed from Basic Browsing!";
+                return $"{brand} removed1";
             }
             else
             {

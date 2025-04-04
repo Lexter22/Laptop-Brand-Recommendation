@@ -5,7 +5,7 @@ namespace Laptop_Brand_Recommendation
     {
         static void Main(string[] args)
         {
-            string[] processes = { "1 - Add Brand", "2 - Display Brands", "3 - Recommend Brand", "4 - Remove Brand", "5 - Exit" };
+            string[] processes = { "0 - Add Brand", "1 - Display Brands", "2 - Recommend Brand", "3 - Remove Brand", "4 - Exit" };
             Boolean loop = true;
 
             // ui logic
@@ -17,7 +17,8 @@ namespace Laptop_Brand_Recommendation
 
                 switch (ProcessChoice)
                 {
-                    case 1:
+                    // dito me nag start gumamit ng enums, from 1 starting point ginawa ko yung default which is yung by 0
+                    case (int)Actions.AddBrand:
                         Console.Write("Enter brand: ");
                         string brand = GetUserInput();
                         Console.WriteLine("What type? ");
@@ -25,15 +26,15 @@ namespace Laptop_Brand_Recommendation
                         int use = Convert.ToInt16(Console.ReadLine());
                         Console.WriteLine(LaptopProcess.AddBrand(brand,use));
                         break;
-                    case 2:
+                    case (int)Actions.DisplayBrands:
                         DisplayBrands(DataBusiness.LaptopProcess.LaptopBrands);
                         break;
-                    case 3:
+                    case (int)Actions.RecommendBrand:
                         Console.WriteLine("For what use do you want your computer?\n1 - Productivity 2 - Gaming 3 - Basic Browsing");
                         int type = Convert.ToInt16(Console.ReadLine());
                         Formatter();
                         
-                        if (DataBusiness.LaptopProcess.RecommendBrand(type).Count > 0)
+                        if (DataBusiness.LaptopProcess.RecommendBrand(type).Count > 0) // this returns if may marerecommend
                         {
                             Console.WriteLine($"Recommended brands: {String.Join(",",LaptopProcess.RecommendedBrands)}");
                         }
@@ -42,12 +43,12 @@ namespace Laptop_Brand_Recommendation
                             Console.WriteLine("No recommended brands");
                         }
                             break;
-                    case 4:
+                    case (int)Actions.RemoveBrand:
                         Console.Write("Enter brand: ");
                         string Remove = GetUserInput();
                         Console.WriteLine(DataBusiness.LaptopProcess.RemoveBrand(Remove.ToUpper()));
                         break;
-                    case 5:
+                    case (int)Actions.Exit:
                         Console.WriteLine("Thank you for using!");
                         loop = false;
                         break;
@@ -66,17 +67,26 @@ namespace Laptop_Brand_Recommendation
             {
                 Console.WriteLine(process);
             }
-        }
+        }// display all brands
         public static void DisplayBrands(List<string> LaptopBrands) // ui logic
         {
             Formatter();
             Console.WriteLine("Brands");
             Formatter();
-            foreach (string brand in LaptopBrands)
+            if(LaptopProcess.LaptopBrands.Count == 0)
             {
-                Console.Write($"{brand} | ");
+                Console.WriteLine("No brands available");
+                return;
             }
-            Console.WriteLine();
+            else
+            {
+                foreach (string brand in LaptopBrands)
+                {
+                    Console.Write($"{brand} | ");
+                }
+                Console.WriteLine();
+            }
+        // formatter method para sa lines
         }
         static void Formatter()
         {
